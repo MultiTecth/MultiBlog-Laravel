@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('title', 100);
-            $table->text('content');
+            $table->string('username');
+            $table->string('thumbnail')->nullable();
+            $table->string('title');
+            $table->text('description');
+            $table->enum('category', ['Pendidikan', 'News', 'Novel', 'Short Story']);
             $table->timestamps();
             $table->softDeletes();
         });

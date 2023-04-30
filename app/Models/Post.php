@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,18 +15,18 @@ class Post extends Model
     public $fillable = [
         'username',
         'title',
-        'content'
+        'description',
+        'thumbnail',
+        'category'
     ];
 
-    // public static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::creating(function ($post) {
-    //         $post->slug = str_replace(' ', '-', $post->title);
-    //     });
-    // }
-
+    public function getCreatedAtAttribute(){
+        $created_at = explode(" ", $this->attributes['created_at']);
+        $date = Carbon::parse($created_at[0])->translatedFormat('l, d F Y');
+        $time = Carbon::parse($created_at[1])->diffForHumans();
+        $this->attributes['created_at'] = $date . ' ' . $time;
+        return $this->attributes['created_at'];
+    }
     public function comments()
     {
         // SELECT * from comments where <nama_class>_id = $this->id

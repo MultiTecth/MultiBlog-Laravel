@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,11 +40,13 @@ class Users extends Controller
      */
     public function show(string $name)
     {
-        $user = User::where('username', $name)
-            ->first();
-
+        if (!Auth::check()) {
+            return redirect('home');
+        }
+        $posts = Post::where('username', $name)
+            ->get();
         $viewData = [
-            'data' => $user
+            'posts' => $posts
         ];
 
         return view('main-blog.user', $viewData);
@@ -51,6 +54,9 @@ class Users extends Controller
 
     public function show_profile(string $name)
     {
+        if (!Auth::check()) {
+            return redirect('home');
+        }
         $user = User::where('username', $name)
             ->first();
 
@@ -66,6 +72,9 @@ class Users extends Controller
      */
     public function edit_profile(string $name, Request $request)
     {
+        if (!Auth::check()) {
+            return redirect('home');
+        }
         $validate =  [
             'username' => 'required',
             'imgpp' => 'image|mimes:jpg,jpeg,png|file|max:1024',
@@ -73,20 +82,20 @@ class Users extends Controller
             'email' => 'required|email:dns',
         ];
 
-        if($request->input('bio') != null){
+        if ($request->input('bio') != null) {
             $validate['bio'] = '';
         }
 
         $validData = $request->validate($validate);
 
-        if(Hash::check($request->input('curpass'), Auth::user()->password)){
-            if($request->validate(['newpass' => 'required|min:6|confirmed'])){
+        if (Hash::check($request->input('curpass'), Auth::user()->password)) {
+            if ($request->validate(['newpass' => 'required|min:6|confirmed'])) {
                 $validData['password'] = hash::make($request->input('newpass'));
             }
         }
 
-        if($request->file('imgpp')){
-            if($request->input('oldImage')){
+        if ($request->file('imgpp')) {
+            if ($request->input('oldImage')) {
                 Storage::delete($request->input('oldImage'));
             }
             $validData['imgpp'] = $request->file('imgpp')->store('user-pp');
@@ -95,11 +104,11 @@ class Users extends Controller
         $validData['updated_at'] = date('Y-m-d H:i:s');
 
         User::where([
-            ['name', $name]
+            ['username', $name]
         ])
             ->update($validData);
 
-        return redirect('user/@' . Auth::user()->name). '/show-profile';
+        return redirect('user/@' . $name . '/show-profile');
     }
     /**
      * Update the specified resource in storage.

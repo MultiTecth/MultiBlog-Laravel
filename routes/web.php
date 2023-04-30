@@ -25,7 +25,7 @@ Route::get('/', function () {
     return view('main-blog.home');
 });
 
-Route::get('/register/login', [AuthController::class, 'login']);
+Route::get('register/login', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'authenticate']);
 Route::get('register/signup', [AuthController::class, 'register_form']);
 Route::post('register', [AuthController::class, 'register']);
@@ -45,6 +45,9 @@ Route::get('user/@{name}/show-profile', [Users::class, 'show_profile']);
 Route::patch('user/@{name}/editprofile', [Users::class, 'edit_profile']);
 
 
-Route::get('/home', [PostController::class, 'index']);
+Route::get('home', [PostController::class, 'index']);
 
 Route::get('upload/blog', [PostController::class, 'create']);
+Route::post('@{name}/upload/blog', [PostController::class, 'store']);
+
+Route::get('tweet/{category}/{id}', [PostController::class, 'show']);

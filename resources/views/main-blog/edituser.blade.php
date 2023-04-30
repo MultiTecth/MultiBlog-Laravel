@@ -24,17 +24,17 @@
             <div class="profile">
                 <div class="profil-box">
                     @if (Auth::user()->imgpp)
-<img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
+                        <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
                             class="rounded-circle">
-                        @else
-<img src="{{ asset('Assets/profile/⠀ 1.png')}}" alt="" width="50"
+                    @else
+                        <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
                             class="rounded-circle">
-                        @endif
+                    @endif
                     <div class="profil-text">{{ Auth::user()->username }}</div>
                 </div>
             </div>
         </div>
-        <div class="jmb-container" style='background-image: url("{{ asset('Assest/img/background.jpg') }}")'>
+        <div class="jmb-container" style='background-image: url("{{ asset('Asset2/img/background.jpg') }}")'>
             <div class="input-profil">
                 <input type="file" id="upload" hidden />
                 <center> <label for="upload"><img src="{{ asset('Assest/assets/img/icon/Subtract.png') }}"
@@ -46,8 +46,9 @@
             <a href="{{ url('user/@' . Auth::user()->username) }}"><img
                     src="{{ asset('Assets/assets/img/icon/Back.png') }}" alt=""></a>
         </div>
-
-        <form action="{{ url('user/@' . Auth::user()->name . '/editprofile') }}" method="post" enctype="multipart/form-data">
+    </div>
+        <form action="{{ url('user/@' . Auth::user()->username . '/editprofile') }}" method="post"
+            enctype="multipart/form-data">
             @method('PATCH')
             @csrf
             <div class="container-content">
@@ -58,17 +59,18 @@
                         <input type="hidden" name="oldImage" value="{{ Auth::user()->imgpp }}">
                         <div class="picture" id="selectedBanner">
                             @if (Auth::user()->imgpp)
-                                    <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt=""
-                                        width="50" class="rounded-circle img-preview">
-                                @else
-                                    <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
-                                        class="rounded-circle img-preview">
-                                @endif
+                                <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
+                                    class="rounded-circle img-preview">
+                            @else
+                                <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
+                                    class="rounded-circle img-preview">
+                            @endif
                         </div>
 
                         <div class="upload">
                             <label class="custom-file-upload">
-                                <input type="file" class="form-control" id="image" placeholder="Enter password" name="imgpp" onchange="previewImage()">
+                                <input type="file" class="form-control" id="image" placeholder="Enter password"
+                                    name="imgpp" onchange="previewImage()">
                                 Choose a file
                             </label>
                             <p>Accceptable formats: jpg, jpeg, png only<br>
@@ -130,7 +132,7 @@
                 const oFReader = new FileReader()
                 oFReader.readAsDataURL(image.files[0])
 
-                oFReader.onload = function(oFREvent){
+                oFReader.onload = function(oFREvent) {
                     imgPreview.src = oFREvent.target.result
                 }
             }

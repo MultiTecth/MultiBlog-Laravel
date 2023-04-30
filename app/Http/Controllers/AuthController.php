@@ -38,6 +38,9 @@ class AuthController extends Controller
 
     public function logout()
     {
+        if (!Auth::check()) {
+            return redirect('home');
+        }
         session()->flush();
         // Session::flush();
         Auth::logout();
@@ -47,6 +50,9 @@ class AuthController extends Controller
 
     public function change()
     {
+        if (!Auth::check()) {
+            return redirect('home');
+        }
         session()->flush();
         Auth::logout();
         return redirect('register/login');
@@ -68,6 +74,7 @@ class AuthController extends Controller
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
+
         if ($request->file('image')) {
             $validateData['image'] = $request->file('image')->store('user-pp');
         }else{

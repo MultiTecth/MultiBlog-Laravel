@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profil</title>
-    <link rel="stylesheet" href="{{ asset('Assets/css/profil/profilpage/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/profilpage/index.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('Asset2/css/footer.css')}}">
 </head>
 
 <body>
@@ -24,25 +24,20 @@
                         <span class="" alt=""><img src="/Home/homepage/assets/iconpack/searchpng.png" alt=""></span>
                         <input type="search" placeholder="Search">
                     </div> -->
-                    <a href="http://localhost:3000/FrontEnd/Post/postPage/process_text.php"><button
+                    <a href="{{ url('upload/blog') }}"><button
                             class="tweet-btn">Tweet</button></a>
                 </div>
                 <div class="profil">
                     <div class="profile-btn">
-                        @if (Auth::user()->imgpp)
                             <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
                                 class="rounded-circle">
-                        @else
-                            <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
-                                class="rounded-circle">
-                        @endif
-                        <div class="profil-text">{{ Auth::user()->name }}</div>
+                        <div class="profil-text">{{ '@' . Auth::user()->username }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="jmb-container">
+    <div class="jmb-container" style="background-image: url('{{ asset('Asset2/img/assets/background.jpg')}}');">
         <div class="box">
             <a href="{{ url('home') }}">
                 <div class="icon-back"><img src="{{ asset('Assets/icon/Back.png') }}" alt=""></div>
@@ -56,16 +51,11 @@
             <div class="profil-card">
                 <div class="profil-box">
                     <div class="profil-picture">
-                        @if (Auth::user()->imgpp)
                             <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
                                 class="rounded-circle">
-                        @else
-                            <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
-                                class="rounded-circle">
-                        @endif
                     </div> <!-- profil end-->
                     <div class="username bio">
-                        <h3>{{ Auth::user()->name }}</h3>
+                        <h3>{{ '@' . Auth::user()->username }}</h3>
                         <div class="bio">
                             <span class="bio">
                                 {{ Auth::user()->bio }}
@@ -74,11 +64,11 @@
                     </div> <!-- User-name end-->
                     <div class="user-email">
                         <!-- <br> -->
-                        <span class="gray">{{ '@' . Auth::user()->username }}</span>
+                        <span class="gray">{{ Auth::user()->email }}</span>
                     </div> <!-- User-email end-->
                 </div><!-- box end-->
                 <div class="edit-profil">
-                    <a href="{{ url('user/@' . Auth::user()->name . '/show-profile') }}"><button>Edit
+                    <a href="{{ url('user/@' . Auth::user()->username . '/show-profile') }}"><button>Edit
                             Profil</button></a>
                 </div><!-- edit profil end-->
             </div> <!-- Profil card end -->
@@ -104,48 +94,43 @@
                     tabindex="0">
                     <!-- Home Tab -->
                     <div class="home-tab-container">
+                        @foreach ($posts as $post)
                         <div class="home-card-content-container">
                             <!-- Copy Here -->
                             <div class="home-tab-profil" id="container-tab-profil">
-                                @if (Auth::user()->imgpp)
                                     <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt=""
                                         width="50" class="rounded-circle">
-                                @else
-                                    <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
-                                        class="rounded-circle">
-                                @endif
                                 <div class="home-tab-profile-text">
-                                    <a href="/FrontEnd/MainBlog/Home News/UpdateBerita/news.html">
-                                        <h3>{{ Auth::user()->name }}</h3>
+                                        <h3>{{ Auth::user()->username }}</h3>
                                         <span class="username-id">
-                                            {{ '@' . Auth::user()->username }}
+                                            {{ Auth::user()->email }}
                                         </span>
-                                    </a>
                                 </div>
                             </div>
                             <!--home tab profile end-->
                             <div class="date-time">
-                                <p>30 April 2023<span id="tanggal"></span></p>
-                                <p>· 23.15 PM<span id="waktu"></span></p>
+                                <p>{{ $post->created_at }}<span id="tanggal"></span></p>
+                                {{-- <p>· 23.15 PM<span id="waktu"></span></p> --}}
                             </div>
                             <div class="post-content">
-                                <a href="/FrontEnd/MainBlog/Home News/UpdateBerita/news.html">
-                                    <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam,
-                                        reiciendis.</p>
+                                <a href="{{ url('tweet/' . $post->category . '/' . $post->id) }}">
+                                    <p id="text">{{ $post->title }}</p>
                                     <span class="picture" id="post-picture"><img
-                                            src="https://i.pinimg.com/564x/2a/00/86/2a0086e355d8198c69f06fb72ad032d3.jpg"
+                                            src="{{ asset('storage/' . $post->thumbnail) }}"
                                             alt=""></span>
-                                </a>
+
                                 <div class="tags">
                                     <ul>
                                         <li><a href="">#Hello</a></li>
                                         <li><a href="">#Hello</a></li>
                                         <li><a href="">#Hello</a></li>
                                     </ul>
-                                    <span class="tagline">NEWS</span>
+                                    <span class="tagline">{{ $post->category }}</span>
                                 </div>
+                            </a>
                             </div>
                         </div> <!-- end Home tab / content-->
+                        @endforeach
                     </div>
                 </div>
                 <div class="tab-pane fade" id="libary-tab-pane" role="tabpanel" aria-labelledby="libary-tab"

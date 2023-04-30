@@ -4,214 +4,232 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Update Profil</title>
-    <link rel="stylesheet" href="{{ asset('Assets/css/home/homeloginprofil/index.css')}}">
-    <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css')}}">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ asset('Asset2/css/blog-main/home/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css') }}">
 </head>
 
 <body>
+    <!-- Navbar -->
     @include('layouts.navbar')
-    <div class="jmb-container"> </div>
-    </div>
+    <!-- Akhir Navbar -->
 
+    <!-- Background -->
+    <div class="jmb-container">
+        <img src="{{ asset('Asset2/img/assets/background.jpg') }}" alt="">
+    </div>
+    <!-- Akhir Background -->
+
+    <!-- Content -->
     <div class="container-content">
+
+        <!-- Friendlist Container -->
         <div class="left-content">
             <div class="title">
-                <h3>Friendlist</h3>
+                <h3>Followed</h3>
             </div>
+
             <div class="content">
                 <div class="card-container-left">
                     <!-- Card1 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/friend-profil/b0f887a041cce87d5a4e5e46524466d9 1.png"
-                                alt=""></div>
+
+                    <a class="card" href="../../users/@/">
+                        <div class="image">
+                            <img src="" alt="">
+                        </div>
                         <div class="text">
                             <p>
-                            <h6 class="friend-username">Username</h6>
-                            bio
+                            <h6 class="friend-username"></h6>
+                            <p></p>
                             </p>
                         </div>
-                    </div> -->
+                    </a>
 
-                    <!-- Card2 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/friend-profil/tewadawd 1.png" alt=""></div>
-                        <div class="text">
-                            <p>
-                            <h6 class="friend-username">h</h6>
-                            hi i’m a journalist and i make ..
-                            </p>
-                        </div>
-                    </div> -->
-
-                    <!-- Card3 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/friend-profil/🍀🍞 (@M_M_0103) _ Twitter 1.png" alt="">
-                        </div>
-                        <div class="text">
-                            <p>
-                            <h6 class="friend-username">gabriell</h6>
-                            <3 </p>
-                        </div>
-                    </div> -->
-
-                    <!-- Card4 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/friend-profil/♡ 1.png" alt=""></div>
-                        <div class="text">
-                            <p>
-                            <h6 class="friend-username">njunn</h6>
-                            hi there!
-                            </p>
-                        </div>
-                    </div> -->
-
-                    <!-- Card5 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/friend-profil/비비 (BIBI) 1.png" alt=""></div>
-                        <div class="text">
-                            <p>
-                            <h6 class="friend-username">bailey</h6>
-                            isi sendiri
-                            </p>
-                        </div>
-                    </div> -->
-
-                    <!-- Close Card -->
                 </div> <!-- Closing tag container card -->
             </div>
         </div>
+        <!-- Akhir Friendlist Container -->
 
+        <!-- Beranda -->
         <div class="center-content">
             <div class="title">
                 <h3>For You</h3>
             </div>
+            {{-- <div class="blogs">
+                <div class="blogs-title">
+                    <h3>FOLLOWED </h3><span class="line"></span>
+                </div>
+                <div class="card-container">
+                    @foreach ($valueNews as $item)
+                        <a class="card" href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
+                            <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
+                                    alt=""></div>
+                            <div class="text">
+                                <p>
+                                    {{ $item['titlePost'] }}
+                                </p>
+                                <small>
+                                    <img src="{{ asset('storage/' . $item['imgUserPost']) }}" width="20" alt="" class="rounded-circle">
+                                    {{ $item['username'] }}
+                                </small>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div> --}}
             <div class="news">
                 <div class="news-title">
                     <h3>NEWS </h3><span class="line"></span>
                 </div>
                 <div class="card-container">
-                    <!-- Card1 -->
-                    <div class="card">
-                        <div class="image"><img src="" alt=""></div>
-                        <div class="text">
-                            <p>
-
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card2 -->
-                    <div class="card">
-                        <div class="image"><img src="" alt=""></div>
-                        <div class="text">
-                            <p>
-
-                            </p>
-                        </div>
-                    </div>
+                    @foreach ($values as $item)
+                        @if ($item['categoryPost'] == 'News')
+                            <!-- Card1 -->
+                            <a class="card"
+                                href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
+                                <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
+                                        alt=""></div>
+                                <div class="text">
+                                    <p>
+                                        {{ $item['titlePost'] }}
+                                    </p>
+                                    <small>
+                                        <img src="{{ asset('storage/' . $item['imgUserPost']) }}" width="20"
+                                            alt="" class="rounded-circle">
+                                        {{ $item['username'] }}
+                                    </small>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
                     <!-- Close Card -->
                 </div> <!-- Closing tag container card -->
-                <div class="novel">
-                    <div class="novel-title">
-                        <h3>NOVEl </h3><span class="line"></span>
-                    </div>
-                    <div class="card-container">
-                        <!-- Card1 -->
-                        <div class="card">
-                            <div class="image"><img
-                                    src=""
-                                    alt=""></div>
-                            <div class="text">
-                                <p>
-
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Card2 -->
-                        <div class="card">
-                            <div class="image"><img src="" alt=""></div>
-                            <div class="text">
-                                <p>
-
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Close Card -->
-                    </div> <!-- Closing tag container card -->
-                </div>
-
-
-                <div class="short-story">
-                    <div class="short-story-title">
-                        <h3>Short Story</h3><span class="line"></span>
-                    </div>
-                    <div class="card-container">
-                        <!-- Card1 -->
-                        <div class="card">
-                            <div class="image"><img
-                                    src=""
-                                    alt=""></div>
-                            <div class="text">
-                                <p>
-
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Card2 -->
-                        <div class="card">
-                            <div class="image"><img src="" alt=""></div>
-                            <div class="text">
-                                <p>
-
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Close Card -->
-                    </div> <!-- Closing tag container card -->
-                </div> <!-- Closing tag Short Story -->
             </div>
-        </div> <!-- Closing tag news -->
+            <div class="news">
+                <div class="news-title">
+                    <h3>NOVEL </h3><span class="line"></span>
+                </div>
+                <div class="card-container">
+                    @foreach ($values as $item)
+                        @if ($item['categoryPost'] == 'Novel')
+                            <!-- Card1 -->
+                            <a class="card"
+                                href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
+                                <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
+                                        alt=""></div>
+                                <div class="text">
+                                    <p>
+                                        {{ $item['titlePost'] }}
+                                    </p>
+                                    <small>
+                                        <img src="{{ asset('storage/' . $item['imgUserPost']) }}" width="20"
+                                            alt="" class="rounded-circle">
+                                        {{ $item['username'] }}
+                                    </small>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
+                    <!-- Close Card -->
+                </div> <!-- Closing tag container card -->
+            </div>
+            <div class="news">
+                <div class="news-title">
+                    <h3>Pendidikan </h3><span class="line"></span>
+                </div>
+                <div class="card-container">
+                    @foreach ($values as $item)
+                        @if ($item['categoryPost'] == 'Pendidikan')
+                            <!-- Card1 -->
+                            <a class="card"
+                                href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
+                                <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
+                                        alt=""></div>
+                                <div class="text">
+                                    <p>
+                                        {{ $item['titlePost'] }}
+                                    </p>
+                                    <small>
+                                        <img src="{{ asset('storage/' . $item['imgUserPost']) }}" width="20"
+                                            alt="" class="rounded-circle">
+                                        {{ $item['username'] }}
+                                    </small>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
+                    <!-- Close Card -->
+                </div> <!-- Closing tag container card -->
+            </div>
+            <div class="news">
+                <div class="news-title">
+                    <h3>Cerpen </h3><span class="line"></span>
+                </div>
+                <div class="card-container">
+                    @foreach ($values as $item)
+                        @if ($item['categoryPost'] == 'Short Story')
+                            <!-- Card1 -->
+                            <a class="card"
+                                href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
+                                <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
+                                        alt=""></div>
+                                <div class="text">
+                                    <p>
+                                        {{ $item['titlePost'] }}
+                                    </p>
+                                    <small>
+                                        <img src="{{ asset('storage/' . $item['imgUserPost']) }}" width="20"
+                                            alt="" class="rounded-circle">
+                                        {{ $item['username'] }}
+                                    </small>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
+                    <!-- Close Card -->
+                </div> <!-- Closing tag container card -->
+            </div>
 
+        </div>
+        <!-- Akhir Beranda -->
+
+        <!-- Save Content -->
         <div class="right-content">
             <div class="title">
                 <h3>Saved</h3>
             </div>
             <div class="content">
                 <div class="card-container-right">
-                    <!-- Card1 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/savedprofil/203677881-416-k974890 1.png" alt=""></div>
-                        <div class="text">
-                            <p>
-                                The baby swap
-                            </p>
+
+                    <a class="card" href="../../tweet/UpdateBerita/news.php?id=">
+                        <div class="image">
+                            <img src="" alt="">
                         </div>
-                    </div> -->
-
-                    <!-- Card2 -->
-                    <!-- <div class="card">
-                        <div class="image"><img src="./assets/savedprofil/267373976-352-k308139 1.png" alt=""></div>
                         <div class="text">
-                            <p>
-                                His Defiant Concubine
-                            </p>
-                        </div> -->
+                            <h4></h4>
+                        </div>
+                    </a>
 
-                    </div><!-- Close Card -->
-                </div> <!-- Closing tag container card -->
-            </div>
+
+
+                </div><!-- Close Card -->
+            </div> <!-- Closing tag container card -->
         </div>
-        </body>
     </div>
-    <footer>
-        <div class="footer-bottom">
-            <p>© 2023 PT. MULTITECH SOLUTION MAKASSAR</p>
-        </div>
-    </footer>
+    <!-- Akhir Save Content -->
+
+    </div>
+    <!-- Akhir Content -->
+
+    <!-- Footer -->
+    @include('layouts.footer')
+    <!-- Akhir Footer -->
+
     <!-- SCRIPT -->
-    <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- untuk dropdown -->
+    <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
 </body>
+
 </html>
