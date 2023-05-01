@@ -40,6 +40,8 @@ Route::get('home/about', function () {
     return view('main-blog.about');
 });
 
+Route::get('home/{name}', [PostController::class, 'showCategory']);
+
 Route::get('user/@{name}', [Users::class, 'show']);
 Route::get('user/@{name}/show-profile', [Users::class, 'show_profile']);
 Route::patch('user/@{name}/editprofile', [Users::class, 'edit_profile']);

@@ -166,6 +166,14 @@ class PostController extends Controller
         return redirect("posts/{$username}/{$id}");
     }
 
+    public function showCategory(string $category){
+        $posts = Post::where('category', $category)->get();
+        $viewDatas = [
+            'posts' => $posts
+        ];
+        return view('main-blog.homeCategory.category', $viewDatas);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

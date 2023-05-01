@@ -22,9 +22,9 @@
                             </button>
 
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../Home News/">News</a></li>
-                                <li><a class="dropdown-item" href="../Home Novel/">Novel</a></li>
-                                <li><a class="dropdown-item" href="../Home Short Story/">Short Story</a></li>
+                                <li><a class="dropdown-item" href="{{ url('home/news' ) }}">News</a></li>
+                                <li><a class="dropdown-item" href="{{ url('home/Novel') }}">Novel</a></li>
+                                <li><a class="dropdown-item" href="{{ url('home/Short Story')}}">Short Story</a></li>
                             </ul>
 
                         </div>
