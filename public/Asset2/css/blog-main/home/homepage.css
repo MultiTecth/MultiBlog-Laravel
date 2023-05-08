@@ -176,6 +176,62 @@ body {
     color: white;
 }
 
+/* Novel */
+.novel {
+    margin-top: 20px;
+    /* background-color:#3868ac84; */
+    padding: 10px;
+    /* border-radius:5px; */
+}
+
+.novel .novel-title h3 {
+    letter-spacing: 3px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.novel .novel-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.novel .novel-title .line {
+    float: right;
+    width: 85%;
+    height: 1px;
+    border: 1px solid #275FB2;
+}
+
+/* Short Story */
+.short-story {
+    margin-top: 20px;
+    /* background-color:#3868ac84; */
+    padding: 10px;
+    /* border-radius:5px; */
+}
+
+.short-story .short-story-title h3 {
+    /* letter-spacing:3px; */
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.short-story .short-story-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.short-story .short-story-title .line {
+    float: right;
+    width: 70%;
+    height: 1px;
+    border: 1px solid #275FB2;
+}
+
 /* Right Content */
 .right-content {
     /* background-color:#3869AC; */

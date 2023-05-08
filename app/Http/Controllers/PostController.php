@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
+use App\Models\savedPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use PDO;
@@ -19,27 +20,61 @@ class PostController extends Controller
      */
     public function index()
     {
+        $authUser = auth()->user();
+        if (isset($authUser)) {
+            $following = $authUser->following;
+        } else {
+            $following = null;
+        }
         $posts = Post::get();
         $userPost = User::get();
         foreach ($posts as $value) {
             foreach ($userPost as $valueUser) {
                 if ($valueUser['username'] == $value['username']) {
-                    $dataPosUser[] = [
-                        'username' => $valueUser['username'],
-                        'imgUserPost' => $valueUser['imgpp'],
-                        'idPost' => $value['id'],
-                        'thumbnailPost' => $value['thumbnail'],
-                        'titlePost' => $value['title'],
-                        'categoryPost' => $value['category'],
-                    ];
+                    if ($value['category'] == 'News') {
+                        $dataNews[] = [
+                            'username' => $valueUser['username'],
+                            'imgUserPost' => $valueUser['imgpp'],
+                            'idPost' => $value['id'],
+                            'thumbnailPost' => $value['thumbnail'],
+                            'titlePost' => $value['title'],
+                            'categoryPost' => $value['category'],
+                        ];
+                    }
+                    if ($value['category'] == 'Pendidikan') {
+                        $dataPendidikan[] = [
+                            'username' => $valueUser['username'],
+                            'imgUserPost' => $valueUser['imgpp'],
+                            'idPost' => $value['id'],
+                            'thumbnailPost' => $value['thumbnail'],
+                            'titlePost' => $value['title'],
+                            'categoryPost' => $value['category'],
+                        ];
+                    }
+                    if ($value['category'] == 'Novel') {
+                        $dataNovel[] = [
+                            'username' => $valueUser['username'],
+                            'imgUserPost' => $valueUser['imgpp'],
+                            'idPost' => $value['id'],
+                            'thumbnailPost' => $value['thumbnail'],
+                            'titlePost' => $value['title'],
+                            'categoryPost' => $value['category'],
+                        ];
+                    }
+                    if ($value['category'] == 'Short Story') {
+                        $dataCerpen[] = [
+                            'username' => $valueUser['username'],
+                            'imgUserPost' => $valueUser['imgpp'],
+                            'idPost' => $value['id'],
+                            'thumbnailPost' => $value['thumbnail'],
+                            'titlePost' => $value['title'],
+                            'categoryPost' => $value['category'],
+                        ];
+                    }
                 }
             }
         }
-        $datas = [
-            'values' => $dataPosUser
-        ];
-        // ddd($dataNovel);
-        return view('main-blog.home', $datas);
+        return view('main-blog.home', compact('following', 'dataNews', 'dataPendidikan', 'dataNovel', 'dataCerpen'));
     }
 
     /**
@@ -78,7 +113,7 @@ class PostController extends Controller
 
         Post::create($validate);
 
-        return redirect('user/@' . $name);
+        return redirect('user/@' . $name . '/profile');
     }
 
     /**
@@ -86,25 +121,39 @@ class PostController extends Controller
      */
     public function show(string $category, string $id)
     {
-        // if (!Auth::check()) {
-        //     return redirect('login');
-        // }
+        if (!Auth::check()) {
+            return redirect('home');
+        }
         $post = Post::where([
             ['id', '=', $id],
             ['category', '=', $category]
         ])->first();
-
+        // ddd($post);
         $userPost = User::where('username', $post['username'])->first();
-
+        // $savedPost = savedPost::where([
+        //     ['user_id' , $userPost['id']],
+        //     ['post_id', $id]
+        // ]);
+        $user = User::where('username', Auth::user()->username)->first();
+        if($post->isSavedBy(Auth::user())){
+            $isSaved = true;
+        }else{
+            $isSaved = false;
+        }
+        $savedByCount = $post->savedBy()->count();
+        $user = Auth::user();
         $data = [
             'imgpp' => $userPost['imgpp'],
             'username' => $userPost['username'],
             'email' => $userPost['email'],
+            'postId' => $post['id'],
             'title' => $post['title'],
             'created_at' => $post['created_at'],
             'thumbnail' => $post['thumbnail'],
             'description' => $post['description'],
-            'category' => $post['category']
+            'category' => $post['category'],
+            'isSaved' => $isSaved,
+
         ];
 
         // $comments = $post->comments()->get();
@@ -116,28 +165,41 @@ class PostController extends Controller
         //     'total_comments' => $total_comments
         // ];
 
-        return view('posts.show', $data);
+        return view('posts.show', compact('savedByCount' ,'data'));
     }
+
+    public function save(string $postId)
+    {
+        // $authUser = Auth::user();
+        $savedPost = savedPost::where('user_id', Auth::user()->id)
+            ->where('post_id', $postId)
+            ->first();
+        if (!$savedPost) {
+            $savedPost = savedPost::create([
+                'user_id' => Auth::user()->id,
+                'post_id' => $postId
+            ]);
+        }
+        return redirect()->back();
+    }
+
+    public function unSave(string $postId){
+        $savedPost = savedPost::where('user_id' , Auth::user()->id)
+                ->where('post_id', $postId)
+                ->first();
+
+        if($savedPost){
+            $savedPost->delete();
+        }
+        return redirect()->back();
+    }
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $name, string $id)
     {
-        // if (!Auth::check()) {
-        //     return redirect('login');
-        // }
-
-        $post = Post::where([
-            ['id', '=', $id],
-            ['username', '=', $name]
-        ])->first();
-
-        $viewData = [
-            'post' => $post
-        ];
-
-        return view('posts.edit', $viewData);
     }
 
     /**
@@ -145,28 +207,10 @@ class PostController extends Controller
      */
     public function update(Request $request, String $name, String $id)
     {
-        // if (!Auth::check()) {
-        //     return redirect('login');
-        // }
-        $username = $request->input('username');
-        $title = $request->input('title');
-        $content = $request->input('content');
-
-        Post::where([
-            ['id', $id],
-            ['username', $name]
-        ])
-            ->update([
-                'username' => $username,
-                'title' => $title,
-                'content' => $content,
-                'updated_at' => date('Y-m-d H:i:s')
-            ]);
-
-        return redirect("posts/{$username}/{$id}");
     }
 
-    public function showCategory(string $category){
+    public function showCategory(string $category)
+    {
         $posts = Post::where('category', $category)->get();
         $viewDatas = [
             'posts' => $posts
@@ -179,17 +223,7 @@ class PostController extends Controller
      */
     public function destroy(string $name, string $id)
     {
-        // if (!Auth::check()) {
-        //     return redirect('login');
-        // }
-
-        Post::where([
-            ['id', $id],
-            ['username', $name]
-        ])
-            ->delete();
-
-
-        return redirect('posts');
     }
+
+
 }

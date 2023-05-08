@@ -38,18 +38,36 @@ class Users extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $name)
+    public function show(Request $request, string $name)
     {
         if (!Auth::check()) {
             return redirect('home');
         }
         $posts = Post::where('username', $name)
             ->get();
-        $viewData = [
-            'posts' => $posts
-        ];
+        $user = User::where('username', $name)->first();
+        $authUser = User::findOrFail(Auth::user()->id);
+        $following = $authUser->isFollowing($user);
+        $followers = $user->followers;
+        return view('main-blog.user', compact('posts', 'user', 'following', 'followers'));
+    }
 
-        return view('main-blog.user', $viewData);
+    public function follow(Request $request, int $id)
+    {
+        $user = $request->user();
+        $followedUser = User::findOrFail($id);
+        $user->follow($followedUser);
+        return redirect()->back();
+    }
+
+    public function unfollow(Request $request, $id)
+    {
+        $user = $request->user();
+        $followedUser = User::findOrFail($id);
+
+        $user->unfollow($followedUser);
+
+        return redirect()->back();
     }
 
     public function show_profile(string $name)
@@ -108,7 +126,7 @@ class Users extends Controller
         ])
             ->update($validData);
 
-        return redirect('user/@' . $name . '/show-profile');
+        return redirect('user/@' . $name . '/profile');
     }
     /**
      * Update the specified resource in storage.

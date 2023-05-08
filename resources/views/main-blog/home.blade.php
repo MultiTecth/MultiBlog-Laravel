@@ -34,19 +34,42 @@
             <div class="content">
                 <div class="card-container-left">
                     <!-- Card1 -->
+                    @isset($following)
 
-                    <a class="card" href="../../users/@/">
-                        <div class="image">
-                            <img src="" alt="">
-                        </div>
-                        <div class="text">
-                            <p>
-                            <h6 class="friend-username"></h6>
-                            <p></p>
-                            </p>
-                        </div>
-                    </a>
 
+                    @if ($following->count() > 0)
+                        @foreach ($following as $item)
+                            <a class="card" href="{{ url('user/@' . $item->username . '/profile') }}">
+                                <div class="image">
+                                    <img src="{{ asset('storage/' . $item->imgpp) }}" width='50' alt=''
+                                        class='rounded-circle'>
+                                </div>
+                                <div class="text">
+                                    <p>
+                                    <h6 class="friend-username fw-normal">{{ '@' . $item->username }}</h6>
+                                    <p>{{ $item->bio }}</p>
+                                    </p>
+                                </div>
+                            </a>
+                        @endforeach
+                    @else
+                        {{-- <a class="card" href=""> --}}
+                            <div class="card">
+
+                                <div class="image">
+                                    {{-- <img src="{{ asset('storage/' . $item->imgpp) }}" width='50' alt=''
+                                    class='rounded-circle'> --}}
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        <h6 class="friend-username fw-normal">Cari teman di search ya....</h6>
+                                        {{-- <p>{{ $item->bio }}</p> --}}
+                                    </p>
+                                </div>
+                            </div>
+                        {{-- </a> --}}
+                    @endif
+@endisset
                 </div> <!-- Closing tag container card -->
             </div>
         </div>
@@ -84,13 +107,13 @@
                     <h3>NEWS </h3><span class="line"></span>
                 </div>
                 <div class="card-container">
-                    @foreach ($values as $item)
+                    @foreach ($dataNews as $item)
                         @if ($item['categoryPost'] == 'News')
                             <!-- Card1 -->
                             <a class="card"
                                 href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
                                 <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
-                                        alt=""></div>
+                                        alt="" width="115"></div>
                                 <div class="text">
                                     <p>
                                         {{ $item['titlePost'] }}
@@ -112,13 +135,13 @@
                     <h3>NOVEL </h3><span class="line"></span>
                 </div>
                 <div class="card-container">
-                    @foreach ($values as $item)
+                    @foreach ($dataNovel as $item)
                         @if ($item['categoryPost'] == 'Novel')
                             <!-- Card1 -->
                             <a class="card"
                                 href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
                                 <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
-                                        alt=""></div>
+                                        alt="" width="115"></div>
                                 <div class="text">
                                     <p>
                                         {{ $item['titlePost'] }}
@@ -140,13 +163,13 @@
                     <h3>Pendidikan </h3><span class="line"></span>
                 </div>
                 <div class="card-container">
-                    @foreach ($values as $item)
+                    @foreach ($dataPendidikan as $item)
                         @if ($item['categoryPost'] == 'Pendidikan')
                             <!-- Card1 -->
                             <a class="card"
                                 href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
                                 <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
-                                        alt=""></div>
+                                        alt="" width="115"></div>
                                 <div class="text">
                                     <p>
                                         {{ $item['titlePost'] }}
@@ -168,13 +191,13 @@
                     <h3>Cerpen </h3><span class="line"></span>
                 </div>
                 <div class="card-container">
-                    @foreach ($values as $item)
+                    @foreach ($dataCerpen as $item)
                         @if ($item['categoryPost'] == 'Short Story')
                             <!-- Card1 -->
                             <a class="card"
                                 href="{{ url('tweet/' . $item['categoryPost'] . '/' . $item['idPost']) }}">
                                 <div class="image"><img src="{{ asset('storage/' . $item['thumbnailPost']) }}"
-                                        alt=""></div>
+                                        alt="" width="115"></div>
                                 <div class="text">
                                     <p>
                                         {{ $item['titlePost'] }}
@@ -229,7 +252,7 @@
 
     <!-- SCRIPT -->
     <!-- untuk dropdown -->
-    <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
+    <script async src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

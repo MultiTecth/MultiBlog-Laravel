@@ -13,8 +13,10 @@
     <div class="container">
         <div class="content">
             <form action="{{ url('register') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                {{-- {{ csrf_field() }} --}}
+                {{-- @csrf --}}
                 <a href="{{ url('home') }}"><img src="{{ asset('Asset2/img/left.png') }}" class="arrow"></a>
-                @csrf
                 <div class="title">
                     <h2>SignUp</h2>
                 </div>

@@ -43,11 +43,11 @@
         </div>
 
         <div class="back">
-            <a href="{{ url('user/@' . Auth::user()->username) }}"><img
+            <a href="{{ url('user/@' . Auth::user()->username . '/profile') }}"><img
                     src="{{ asset('Assets/assets/img/icon/Back.png') }}" alt=""></a>
         </div>
     </div>
-        <form action="{{ url('user/@' . Auth::user()->username . '/editprofile') }}" method="post"
+        <form action="{{ url('user/@' . Auth::user()->username . '/edit-profile') }}" method="post"
             enctype="multipart/form-data">
             @method('PATCH')
             @csrf
@@ -120,7 +120,7 @@
 
         @include('layouts.footer')
         <!-- SCRIPT -->
-        <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
+        <script async src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
         <script>
             function previewImage() {
                 const image = document.querySelector('#image')

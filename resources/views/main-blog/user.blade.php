@@ -7,7 +7,7 @@
     <title>Profil</title>
     <link rel="stylesheet" href="{{ asset('Asset2/css/profilpage/index.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('Asset2/css/footer.css')}}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/footer.css') }}">
 </head>
 
 <body>
@@ -24,20 +24,19 @@
                         <span class="" alt=""><img src="/Home/homepage/assets/iconpack/searchpng.png" alt=""></span>
                         <input type="search" placeholder="Search">
                     </div> -->
-                    <a href="{{ url('upload/blog') }}"><button
-                            class="tweet-btn">Tweet</button></a>
+                    <a href="{{ url('upload/blog') }}"><button class="tweet-btn">Tweet</button></a>
                 </div>
                 <div class="profil">
                     <div class="profile-btn">
-                            <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
-                                class="rounded-circle">
+                        <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
+                            class="rounded-circle">
                         <div class="profil-text">{{ '@' . Auth::user()->username }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="jmb-container" style="background-image: url('{{ asset('Asset2/img/assets/background.jpg')}}');">
+    <div class="jmb-container" style="background-image: url('{{ asset('Asset2/img/assets/background.jpg') }}');">
         <div class="box">
             <a href="{{ url('home') }}">
                 <div class="icon-back"><img src="{{ asset('Assets/icon/Back.png') }}" alt=""></div>
@@ -51,25 +50,41 @@
             <div class="profil-card">
                 <div class="profil-box">
                     <div class="profil-picture">
-                            <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
-                                class="rounded-circle">
+                        {{-- @php
+                        ddd($viewData)
+                        @endphp --}}
+                        <img src="{{ asset('storage/' . $user->imgpp) }}" alt="" width="50"
+                            class="rounded-circle">
                     </div> <!-- profil end-->
                     <div class="username bio">
-                        <h3>{{ '@' . Auth::user()->username }}</h3>
+                        <h3>{{ '@' . $user->username }}</h3>
                         <div class="bio">
                             <span class="bio">
-                                {{ Auth::user()->bio }}
+                                {{ $user->bio }}
                             </span>
                         </div><!-- Bio end-->
                     </div> <!-- User-name end-->
                     <div class="user-email">
                         <!-- <br> -->
-                        <span class="gray">{{ Auth::user()->email }}</span>
+                        <span class="gray">{{ $user->email }}</span>
                     </div> <!-- User-email end-->
                 </div><!-- box end-->
                 <div class="edit-profil">
-                    <a href="{{ url('user/@' . Auth::user()->username . '/show-profile') }}"><button>Edit
-                            Profil</button></a>
+                    @if (Auth::user()->username == $user->username)
+                        <a href="{{ url('user/@' . Auth::user()->username . '/edit-profile') }}"><button>Edit
+                                Profil</button></a>
+                    @elseif($following)
+                        <form action="{{ url('unfollow/' . $user->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">unfollow</button>
+                        </form>
+                    @else
+                        <form action="{{ url('follow/' . $user->id) }}" method="POST">
+                            @csrf
+                            <button type="submit">follow</button>
+                        </form>
+                    @endif
                 </div><!-- edit profil end-->
             </div> <!-- Profil card end -->
 
@@ -95,41 +110,41 @@
                     <!-- Home Tab -->
                     <div class="home-tab-container">
                         @foreach ($posts as $post)
-                        <div class="home-card-content-container">
-                            <!-- Copy Here -->
-                            <div class="home-tab-profil" id="container-tab-profil">
-                                    <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt=""
-                                        width="50" class="rounded-circle">
-                                <div class="home-tab-profile-text">
-                                        <h3>{{ Auth::user()->username }}</h3>
+                            <div class="home-card-content-container">
+                                <!-- Copy Here -->
+                                <div class="home-tab-profil" id="container-tab-profil">
+                                    <img src="{{ asset('storage/' . $user->imgpp) }}" alt="" width="50"
+                                        class="rounded-circle">
+                                    <div class="home-tab-profile-text">
+                                        <h3>{{ $user->username }}</h3>
                                         <span class="username-id">
-                                            {{ Auth::user()->email }}
+                                            {{ $user->email }}
                                         </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--home tab profile end-->
-                            <div class="date-time">
-                                <p>{{ $post->created_at }}<span id="tanggal"></span></p>
-                                {{-- <p>· 23.15 PM<span id="waktu"></span></p> --}}
-                            </div>
-                            <div class="post-content">
-                                <a href="{{ url('tweet/' . $post->category . '/' . $post->id) }}">
-                                    <p id="text">{{ $post->title }}</p>
-                                    <span class="picture" id="post-picture"><img
-                                            src="{{ asset('storage/' . $post->thumbnail) }}"
-                                            alt=""></span>
+                                <!--home tab profile end-->
+                                <div class="date-time">
+                                    <p>{{ $post->created_at }}<span id="tanggal"></span></p>
+                                    {{-- <p>· 23.15 PM<span id="waktu"></span></p> --}}
+                                </div>
+                                <div class="post-content">
+                                    <a href="{{ url('tweet/' . $post->category . '/' . $post->id) }}">
+                                        <p id="text">{{ $post->title }}</p>
+                                        <span class="picture" id="post-picture"><img
+                                                src="{{ asset('storage/' . $post->thumbnail) }}"
+                                                alt=""></span>
 
-                                <div class="tags">
-                                    <ul>
-                                        <li><a href="">#Hello</a></li>
-                                        <li><a href="">#Hello</a></li>
-                                        <li><a href="">#Hello</a></li>
-                                    </ul>
-                                    <span class="tagline">{{ $post->category }}</span>
+                                        <div class="tags">
+                                            <ul>
+                                                <li><a href="">#Hello</a></li>
+                                                <li><a href="">#Hello</a></li>
+                                                <li><a href="">#Hello</a></li>
+                                            </ul>
+                                            <span class="tagline">{{ $post->category }}</span>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                            </div>
-                        </div> <!-- end Home tab / content-->
+                            </div> <!-- end Home tab / content-->
                         @endforeach
                     </div>
                 </div>
@@ -175,59 +190,29 @@
                     <!-- Container -->
                     <div class="container-friends-tab">
                         <!-- Card -->
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/profile/friend-profil/tewadawd 1.png') }}" alt="">
-                            </div>
-                            <div class="messange">
-                                <div class="username">
-                                    <p>Lorem ipsum dolor</p>
+                        @if (count($followers) > 0)
+                            @foreach ($followers as $item)
+                                <div class="card">
+                                    <div class="img-card"><img src="{{ asset('storage/' . $item->imgpp) }}"
+                                            alt="">
+                                    </div>
+                                    <div class="messange">
+                                        <div class="username">
+                                            <p>{{ $item->username }}</p>
+                                        </div>
+                                        <div class="text">{{ $item->bio }}</div>
+                                    </div>
                                 </div>
-                                <div class="text">Lorem ipsum dolor sit amet.</div>
-                            </div>
-                        </div>
-                        <!--End Card-->
-
-                        <!-- Card -->
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/profile/friend-profil/tewadawd 1.png') }}" alt="">
-                            </div>
-                            <div class="messange">
-                                <div class="username">
-                                    <p>Lorem ipsum dolor</p>
+                            @endforeach
+                        @else
+                            <div class="card">
+                                <div class="messange">
+                                    <div class="username">
+                                        <p>Gak punya temen....</p>
+                                    </div>
                                 </div>
-                                <div class="text">Lorem ipsum dolor sit amet.</div>
                             </div>
-                        </div>
-                        <!--End Card-->
-
-                        <!-- Card -->
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/profile/friend-profil/tewadawd 1.png') }}" alt="">
-                            </div>
-                            <div class="messange">
-                                <div class="username">
-                                    <p>Lorem ipsum dolor</p>
-                                </div>
-                                <div class="text">Lorem ipsum dolor sit amet.</div>
-                            </div>
-                        </div>
-                        <!--End Card-->
-
-                        <!-- Card -->
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/profile/friend-profil/tewadawd 1.png') }}" alt="">
-                            </div>
-                            <div class="messange">
-                                <div class="username">
-                                    <p>Lorem ipsum dolor</p>
-                                </div>
-                                <div class="text">Lorem ipsum dolor sit amet.</div>
-                            </div>
-                        </div>
+                        @endif
                         <!--End Card-->
                     </div>
                     <!--End Container-libary-tab-->
@@ -238,7 +223,7 @@
     </div>
     @include('layouts.footer')
     <!-- SCRIPT -->
-    <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
+    <script async src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

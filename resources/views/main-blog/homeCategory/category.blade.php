@@ -7,7 +7,7 @@
   <title>News</title>
   <link rel="stylesheet" href="{{ asset('Asset2/css/blog-main/news/index.css')}}">
   <link rel="stylesheet" href="{{ asset('Asset2/css/nav.css')}}">
-  <link rel="stylesheet" href="{{ asset('Asset2css/footer.css')}}">
+  <link rel="stylesheet" href="{{ asset('Asset2/css/footer.css')}}">
   <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css')}}">
 </head>
 
@@ -91,8 +91,7 @@
 
   <!-- SCRIPT -->
   <!-- untuk dropdown -->
-  <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js')}}">
-  </script>
+  <script async src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js')}}"></script>
 </body>
 
 </html>

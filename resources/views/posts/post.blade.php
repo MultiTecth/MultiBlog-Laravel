@@ -17,34 +17,6 @@
             <h2>MultiBlog</h2>
         </div>
     </div>
-
-    <!-- Profil User Login -->
-    <!-- <div class="profil">
-        <div class="dropdown">
-          <a class="btn text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <img src="./assest/profillogin/❝ save __ follow ❞ 2.png" alt="" width="50"
-              class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu">
-            <div class="profil-picture">
-              <img src="./assest/profillogin/❝ save __ follow ❞ 2.png" alt="" width="50"
-                class="rounded-circle">
-              <span class="username">
-                <h4>Sjunn</h4>
-                <h6>audreyyy@gmail.com</h6>
-              </span>
-            </div>
-            <li><a class="dropdown-item" href="#"><button><div class="user-icon"><img src="./assest/user.png" alt=""></div>Profile</button></a></li>
-            <li><a class="dropdown-item" href="#"><button><div class="saved"><img src="./assest/save-instagram.png" alt=""></div>Favorite</button></a></li>
-            <li class="dropdown-item" href=""><button><div class="rotate"><img src="./assest/rotate.png" alt=""></div>Change Account</button></li>
-            <li class="dropdown-item"><a href="/sginup/sginup.html"><button><div class="exit"><img src="./assest/Sign_out_squre_light.png" alt=""></div>Log Out</button></a></li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
-
-    </div>
     </div>
     <div class="container-content">
         <a href="{{ url('home') }}">
@@ -166,7 +138,7 @@
     </footer>
     <!-- SCRIPT -->
     <script src="{{ asset('ckeditor5/build/ckeditor.js') }}"></script>
-    <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
+    <script async src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#editor'), {
@@ -245,11 +217,5 @@
                 console.error(error);
             });
     </script>
-
-
-
-
-
 </body>
-
 </html>
