@@ -153,34 +153,22 @@
                     <!-- Container -->
                     <div class="container-libary-tab">
                         <!-- Card -->
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/Image Novel/3819901-352-k318054 1.png') }}" alt="">
-                            </div>
-                            <p>Lorem ipsum dolor</p>
-                            <div class="saved-icon"><a href=""><img
-                                        src="{{ asset('Assets/icon/save-instagram.png') }}" alt=""></a></div>
-                        </div>
-                        <!--End Card-->
-
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/Image Novel/3819901-352-k318054 1.png') }}" alt="">
-                            </div>
-                            <p>Lorem ipsum dolor</p>
-                            <div class="saved-icon"><a href=""><img
-                                        src="{{ asset('Assets/icon/save-instagram.png') }}" alt=""></a></div>
-                        </div>
-                        <!--End Card-->
-
-                        <div class="card">
-                            <div class="img-card"><img
-                                    src="{{ asset('Assets/Image Novel/3819901-352-k318054 1.png') }}" alt="">
-                            </div>
-                            <p>Lorem ipsum dolor</p>
-                            <div class="saved-icon"><a href=""><img
-                                        src="{{ asset('Assets/icon/save-instagram.png') }}" alt=""></a></div>
-                        </div>
+                        @if (count($savedPost) > 0)
+                            @foreach ($savedPost as $item)
+                                <a class="card" href="{{ url('tweet/' . $item->post->category . '/' . $item->post->id) }}">
+                                    <div class="img-card">
+                                        <!-- <img src="../../Assest/Image Novel/3819901-352-k318054 1.png" alt=""> -->
+                                        <img src="{{ asset('storage/' . $item->post->thumbnail) }}" alt="" width="100%">
+                                    </div>
+                                    <div class="content">
+                                        <div>
+                                            <h2>{{ $item->post->title }}</h2>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @else
+                        @endif
                         <!--End Card-->
                     </div>
                     <!--End Container-libary-tab-->

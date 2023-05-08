@@ -26,6 +26,7 @@ class PostController extends Controller
         } else {
             $following = null;
         }
+        $savedPost = savedPost::with('post')->where('user_id', $authUser->id)->get();
         $posts = Post::get();
         $userPost = User::get();
         foreach ($posts as $value) {
@@ -74,7 +75,7 @@ class PostController extends Controller
                 }
             }
         }
-        return view('main-blog.home', compact('following', 'dataNews', 'dataPendidikan', 'dataNovel', 'dataCerpen'));
+        return view('main-blog.home', compact('following', 'savedPost' , 'dataNews', 'dataPendidikan', 'dataNovel', 'dataCerpen'));
     }
 
     /**

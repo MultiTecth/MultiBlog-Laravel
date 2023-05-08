@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\savedPost;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,8 @@ class Users extends Controller
         $authUser = User::findOrFail(Auth::user()->id);
         $following = $authUser->isFollowing($user);
         $followers = $user->followers;
-        return view('main-blog.user', compact('posts', 'user', 'following', 'followers'));
+        $savedPost = savedPost::with('post')->where('user_id', $user->id)->get();
+        return view('main-blog.user', compact('posts', 'user', 'following', 'followers', 'savedPost'));
     }
 
     public function follow(Request $request, int $id)

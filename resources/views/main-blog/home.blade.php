@@ -37,23 +37,23 @@
                     @isset($following)
 
 
-                    @if ($following->count() > 0)
-                        @foreach ($following as $item)
-                            <a class="card" href="{{ url('user/@' . $item->username . '/profile') }}">
-                                <div class="image">
-                                    <img src="{{ asset('storage/' . $item->imgpp) }}" width='50' alt=''
-                                        class='rounded-circle'>
-                                </div>
-                                <div class="text">
-                                    <p>
-                                    <h6 class="friend-username fw-normal">{{ '@' . $item->username }}</h6>
-                                    <p>{{ $item->bio }}</p>
-                                    </p>
-                                </div>
-                            </a>
-                        @endforeach
-                    @else
-                        {{-- <a class="card" href=""> --}}
+                        @if ($following->count() > 0)
+                            @foreach ($following as $item)
+                                <a class="card" href="{{ url('user/@' . $item->username . '/profile') }}">
+                                    <div class="image">
+                                        <img src="{{ asset('storage/' . $item->imgpp) }}" width='50' alt=''
+                                            class='rounded-circle'>
+                                    </div>
+                                    <div class="text">
+                                        <p>
+                                        <h6 class="friend-username fw-normal">{{ '@' . $item->username }}</h6>
+                                        <p>{{ $item->bio }}</p>
+                                        </p>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @else
+                            {{-- <a class="card" href=""> --}}
                             <div class="card">
 
                                 <div class="image">
@@ -62,14 +62,14 @@
                                 </div>
                                 <div class="text">
                                     <p>
-                                        <h6 class="friend-username fw-normal">Cari teman di search ya....</h6>
-                                        {{-- <p>{{ $item->bio }}</p> --}}
+                                    <h6 class="friend-username fw-normal">Cari teman di search ya....</h6>
+                                    {{-- <p>{{ $item->bio }}</p> --}}
                                     </p>
                                 </div>
                             </div>
-                        {{-- </a> --}}
-                    @endif
-@endisset
+                            {{-- </a> --}}
+                        @endif
+                    @endisset
                 </div> <!-- Closing tag container card -->
             </div>
         </div>
@@ -225,15 +225,19 @@
             </div>
             <div class="content">
                 <div class="card-container-right">
-
-                    <a class="card" href="../../tweet/UpdateBerita/news.php?id=">
-                        <div class="image">
-                            <img src="" alt="">
-                        </div>
-                        <div class="text">
-                            <h4></h4>
-                        </div>
-                    </a>
+                    @if (count($savedPost) > 0)
+                        @foreach ($savedPost as $item)
+                            <a class="card" href="{{ url('tweet/' . $item->post->category . '/' . $item->post->id) }}">
+                                <div class="image">
+                                    <img src="{{ asset('storage/' . $item->post->thumbnail) }}" alt="" width="115">
+                                </div>
+                                <div class="text">
+                                    <h4>{{ $item->post->title }}</h4>
+                                </div>
+                            </a>
+                        @endforeach
+                    @else
+                    @endif
 
 
 
