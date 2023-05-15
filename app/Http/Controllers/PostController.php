@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use App\Models\savedPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use PDO;
-use PhpParser\Node\Expr\Cast\String_;
-use Ramsey\Uuid\Type\Integer;
 
 class PostController extends Controller
 {
@@ -129,12 +124,7 @@ class PostController extends Controller
             ['id', '=', $id],
             ['category', '=', $category]
         ])->first();
-        // ddd($post);
         $userPost = User::where('username', $post['username'])->first();
-        // $savedPost = savedPost::where([
-        //     ['user_id' , $userPost['id']],
-        //     ['post_id', $id]
-        // ]);
         $user = User::where('username', Auth::user()->username)->first();
         if($post->isSavedBy(Auth::user())){
             $isSaved = true;
@@ -156,22 +146,11 @@ class PostController extends Controller
             'isSaved' => $isSaved,
 
         ];
-
-        // $comments = $post->comments()->get();
-        // $total_comments = $post->total_comments();
-
-        // $viewData = [
-        //     'post' => $post,
-        //     'comments' => $comments,
-        //     'total_comments' => $total_comments
-        // ];
-
         return view('posts.show', compact('savedByCount' ,'data'));
     }
 
     public function save(string $postId)
     {
-        // $authUser = Auth::user();
         $savedPost = savedPost::where('user_id', Auth::user()->id)
             ->where('post_id', $postId)
             ->first();

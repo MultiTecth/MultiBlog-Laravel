@@ -28,18 +28,6 @@ class Post extends Model
         $this->attributes['created_at'] = $date . ' ' . $time;
         return $this->attributes['created_at'];
     }
-    public function comments()
-    {
-        // SELECT * from comments where <nama_class>_id = $this->id
-        return $this->hasMany(Comment::class);
-    }
-
-    public function total_comments()
-    {
-        // SELECT COUNT(1) FROM comments
-        return $this->comments()->count();
-    }
-
     public function savedBy(){
         return $this->belongsToMany(User::class, 'saved_posts', 'post_id', 'user_id');
     }

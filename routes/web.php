@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('ajax/{name}', [searchController::class, 'ajax']);
 Route::get('read/{name}', [searchController::class, 'read']);
 

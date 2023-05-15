@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-// use Session;
-
-use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -42,7 +37,6 @@ class AuthController extends Controller
             return redirect('home');
         }
         session()->flush();
-        // Session::flush();
         Auth::logout();
 
         return redirect('home');
@@ -65,8 +59,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // return $request->file('imgUpload')->store('user-pp');
-
         $validateData =  $request->validate([
             'username' => 'required|unique:users',
             'image' => 'image|mimes:jpg,jpeg,png|file|max:1024',
@@ -88,9 +80,6 @@ class AuthController extends Controller
             'email' => $validateData['email'],
             'password' => Hash::make($validateData['password']),
         ]);
-
-        // User::create($validateData);
-
         return view('register.login.login');
     }
 }
