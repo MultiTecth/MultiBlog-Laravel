@@ -67,7 +67,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## How To Clone And Setup Laravel Project
 
-- **[npm install]**
+- **npm install**
 - **composer install**
 - **duplicate file .env.example and rename the duplicate file to .env**
 - **php artisan key:generate**
