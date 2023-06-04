@@ -24,9 +24,6 @@
 
   <div class="container-content">
     <div class="center-content">
-      <!-- <div class="title">
-        <h3>For You</h3>
-      </div> -->
       <div class="news">
         <div class="news-title">
           <h3>{{ $posts->first()->category }} </h3><span class="line"></span>
@@ -55,34 +52,25 @@
       </div>
     </div> <!-- Closing tag news -->
 
-    <div class="right-content">
+    {{-- <div class="right-content">
       <div class="title">
         <h3>Saved</h3>
       </div>
       <div class="content">
         <div class="card-container-right">
           <!-- Card1 -->
-          <!-- <div class="card">
-            <div class="image"><img src="./assets/savedprofil/203677881-416-k974890 1.png" alt=""></div>
+          <div class="card">
+            <div class="image"><img src="{{ asset('storage/' . $post->thumbnail)}}" alt=""></div>
             <div class="text">
               <p>
                 The baby swap
               </p>
             </div>
-          </div> -->
-
-          <!-- Card2 -->
-          <!-- <div class="card">
-            <div class="image"><img src="./assets/savedprofil/267373976-352-k308139 1.png" alt=""></div>
-            <div class="text">
-              <p>
-                His Defiant Concubine
-              </p>
-            </div> -->
+          </div>
           </div><!-- Close Card -->
         </div> <!-- Closing tag container card -->
       </div>
-    </div>
+    </div> --}}
   </div>
 
   <!-- Footer -->

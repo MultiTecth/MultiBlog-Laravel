@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BlogPosted;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\savedPost;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -15,13 +17,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        $authUser = auth()->user();
-        if (isset($authUser)) {
-            $following = $authUser->following;
-        } else {
-            $following = null;
-        }
-        $savedPost = savedPost::with('post')->where('user_id', $authUser->id)->get();
         $posts = Post::get();
         $userPost = User::get();
         foreach ($posts as $value) {
@@ -70,7 +65,13 @@ class PostController extends Controller
                 }
             }
         }
-        return view('main-blog.home', compact('following', 'savedPost' , 'dataNews', 'dataPendidikan', 'dataNovel', 'dataCerpen'));
+        if (!Auth::check()) {
+            return view('main-blog.home', compact('dataNews', 'dataPendidikan', 'dataNovel', 'dataCerpen'));
+        }
+        $authUser = auth()->user();
+        $following = $authUser->following;
+        $savedPost = savedPost::with('post')->where('user_id', Auth::user()->id)->get();
+        return view('main-blog.home', compact('following', 'savedPost', 'dataNews', 'dataPendidikan', 'dataNovel', 'dataCerpen'));
     }
 
     /**
@@ -79,7 +80,7 @@ class PostController extends Controller
     public function create()
     {
         if (!Auth::check()) {
-            return redirect('home');
+            return redirect('register/login');
         }
         return view('posts.post');
     }
@@ -90,7 +91,7 @@ class PostController extends Controller
     public function store(string $name, Request $request)
     {
         if (!Auth::check()) {
-            return redirect('home');
+            return redirect('register/login');
         }
         $validate = $request->validate([
             'title' => 'required',
@@ -107,7 +108,9 @@ class PostController extends Controller
 
         $validate['username'] = $name;
 
-        Post::create($validate);
+        $post = Post::create($validate);
+
+        Mail::to(Auth::user()->email)->send(new BlogPosted($post));
 
         return redirect('user/@' . $name . '/profile');
     }
@@ -118,7 +121,7 @@ class PostController extends Controller
     public function show(string $category, string $id)
     {
         if (!Auth::check()) {
-            return redirect('home');
+            return redirect('register/login');
         }
         $post = Post::where([
             ['id', '=', $id],
@@ -126,9 +129,9 @@ class PostController extends Controller
         ])->first();
         $userPost = User::where('username', $post['username'])->first();
         $user = User::where('username', Auth::user()->username)->first();
-        if($post->isSavedBy(Auth::user())){
+        if ($post->isSavedBy(Auth::user())) {
             $isSaved = true;
-        }else{
+        } else {
             $isSaved = false;
         }
         $savedByCount = $post->savedBy()->count();
@@ -146,11 +149,14 @@ class PostController extends Controller
             'isSaved' => $isSaved,
 
         ];
-        return view('posts.show', compact('savedByCount' ,'data'));
+        return view('posts.show', compact('savedByCount', 'data'));
     }
 
     public function save(string $postId)
     {
+        if (!Auth::check()) {
+            return redirect('register/login');
+        }
         $savedPost = savedPost::where('user_id', Auth::user()->id)
             ->where('post_id', $postId)
             ->first();
@@ -163,47 +169,30 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-    public function unSave(string $postId){
-        $savedPost = savedPost::where('user_id' , Auth::user()->id)
-                ->where('post_id', $postId)
-                ->first();
+    public function unSave(string $postId)
+    {
+        if (!Auth::check()) {
+            return redirect('register/login');
+        }
+        $savedPost = savedPost::where('user_id', Auth::user()->id)
+            ->where('post_id', $postId)
+            ->first();
 
-        if($savedPost){
+        if ($savedPost) {
             $savedPost->delete();
         }
         return redirect()->back();
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $name, string $id)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, String $name, String $id)
-    {
-    }
-
     public function showCategory(string $category)
     {
+        if (!Auth::check()) {
+            return redirect('register/login');
+        }
         $posts = Post::where('category', $category)->get();
         $viewDatas = [
             'posts' => $posts
         ];
         return view('main-blog.homeCategory.category', $viewDatas);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $name, string $id)
-    {
-    }
-
-
 }

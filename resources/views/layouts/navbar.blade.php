@@ -4,7 +4,7 @@
         <!-- Navbar kiri -->
         <div class="nav-menu">
             <div class="text">
-                <a href="{{ url('home') }}">
+                <a href="{{ url('home') }}" style="text-decoration: none">
                     <h2>MultiBlog</h2>
                 </a>
             </div>

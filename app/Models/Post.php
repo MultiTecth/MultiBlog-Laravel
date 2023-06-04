@@ -28,6 +28,7 @@ class Post extends Model
         $this->attributes['created_at'] = $date . ' ' . $time;
         return $this->attributes['created_at'];
     }
+
     public function savedBy(){
         return $this->belongsToMany(User::class, 'saved_posts', 'post_id', 'user_id');
     }

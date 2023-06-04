@@ -1,6 +1,6 @@
 @foreach ($datas as $item)
     @isset($item->title)
-        <a href="{{ url('tweet/' . $item->category . '/' . $item->id) }}">
+        <a href="{{ url('tweet/' . $item->category . '/' . $item->id) }}" class="text-decoration-none">
             <div class="card">
                 <div id="judul">
                     <h5>{{ $item->title }}</h5>
@@ -14,7 +14,7 @@
         </a>
     @endisset
     @isset($item->name)
-        <a href="{{ url('user/@' . $item->username . '/profile') }}">
+        <a href="{{ url('user/@' . $item->username . '/profile') }}" class="text-decoration-none">
             <div class="card">
                 <div class="img-card"><img src="{{ asset('storage/' . $item->imgpp) }}" alt=""></div>
                 <div class="messange">

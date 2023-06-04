@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Profil</title>
-    <link rel="stylesheet" href="{{ asset('Assets/assets/root.css') }}">
-    <link rel="stylesheet" href="{{ asset('Assets/assets/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('Assets/assets/input-profil.css') }}">
-    <link rel="stylesheet" href="{{ asset('Assets/assets/profil-information.css') }}">
-    <link rel="stylesheet" href="{{ asset('Assets/assets/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/root.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/edit_profile/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/edit_profile/input-profil.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/edit_profile/profil-information.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/edit_profile/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css') }}">
 </head>
 
@@ -27,7 +27,7 @@
                         <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
                             class="rounded-circle">
                     @else
-                        <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
+                        <img src="{{ asset('Asset2/img/icon/⠀ 1.png') }}" alt="" width="50"
                             class="rounded-circle">
                     @endif
                     <div class="profil-text">{{ Auth::user()->username }}</div>
@@ -37,14 +37,14 @@
         <div class="jmb-container" style='background-image: url("{{ asset('Asset2/img/background.jpg') }}")'>
             <div class="input-profil">
                 <input type="file" id="upload" hidden />
-                <center> <label for="upload"><img src="{{ asset('Assest/assets/img/icon/Subtract.png') }}"
+                <center> <label for="upload"><img src="{{ asset('Asset2/img/icon/Subtract.png') }}"
                             alt=""></label></center>
             </div>
         </div>
 
         <div class="back">
             <a href="{{ url('user/@' . Auth::user()->username . '/profile') }}"><img
-                    src="{{ asset('Assets/assets/img/icon/Back.png') }}" alt=""></a>
+                    src="{{ asset('Asset2/img/icon/Back.png') }}" alt=""></a>
         </div>
     </div>
         <form action="{{ url('user/@' . Auth::user()->username . '/edit-profile') }}" method="post"
@@ -62,7 +62,7 @@
                                 <img src="{{ asset('storage/' . Auth::user()->imgpp) }}" alt="" width="50"
                                     class="rounded-circle img-preview">
                             @else
-                                <img src="{{ asset('Assets/profile/⠀ 1.png') }}" alt="" width="50"
+                                <img src="{{ asset('Asset2/img/icon/⠀ 1.png') }}" alt="" width="50"
                                     class="rounded-circle img-preview">
                             @endif
                         </div>

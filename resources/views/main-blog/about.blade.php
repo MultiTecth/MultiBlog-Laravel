@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="{{ asset('Asset2/css/blog-main/about/index.css')}}">
   <link rel="stylesheet" href="{{ asset('Asset2/css/nav.css')}}">
   <link rel="stylesheet" href="{{ asset('Asset2/css/footer.css')}}">
-
   <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css')}}">
 </head>
 
@@ -28,7 +27,6 @@
     <div class="about-card">
       <div class="card-container">
         <center><h2>About Us</h2></center>
-        <!-- <center><hr width="150"></center> -->
         <center>
           <p>
             Kami membuat Blog ini yang bertujuan untuk membuath sebuah situs web blog yang memungkinkan pengguna untuk membuat dan mempublikasikan konten mereka sendiri. Situs web ini akan menyediakan platform bagi blogger untuk berbagi ide, pendapat, dan pengalaman mereka dengan audiens yang lebih luas. Pengguna akan dapat membuat akun, masuk, dan membuat postingan yang akan dipublikasikan di situs web. Situs web ini juga akan memiliki fitur seperti berkomentar dan berbagi, sehingga menjadi komunitas yang interaktif.
@@ -88,6 +86,5 @@
   <!-- SCRIPT -->
   <!-- untuk dropdown -->
   <script src="{{ asset('bootstrap-5/js/bootstrap.bundle.min.js')}}"></script>
-  </script>
 </body>
 </html>

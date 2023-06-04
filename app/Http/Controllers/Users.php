@@ -18,20 +18,23 @@ class Users extends Controller
     public function show(Request $request, string $name)
     {
         if (!Auth::check()) {
-            return redirect('home');
+            return redirect('register/login');
         }
         $posts = Post::where('username', $name)
             ->get();
         $user = User::where('username', $name)->first();
         $authUser = User::findOrFail(Auth::user()->id);
         $following = $authUser->isFollowing($user);
-        $followers = $user->followers;
+        $followers = $user->following;
         $savedPost = savedPost::with('post')->where('user_id', $user->id)->get();
         return view('main-blog.user', compact('posts', 'user', 'following', 'followers', 'savedPost'));
     }
 
     public function follow(Request $request, int $id)
     {
+        if (!Auth::check()) {
+            return redirect('register/login');
+        }
         $user = $request->user();
         $followedUser = User::findOrFail($id);
         $user->follow($followedUser);
@@ -40,6 +43,9 @@ class Users extends Controller
 
     public function unfollow(Request $request, $id)
     {
+        if (!Auth::check()) {
+            return redirect('register/login');
+        }
         $user = $request->user();
         $followedUser = User::findOrFail($id);
 
@@ -51,16 +57,19 @@ class Users extends Controller
     public function show_profile(string $name)
     {
         if (!Auth::check()) {
-            return redirect('home');
+            return redirect('register/login');
         }
-        $user = User::where('username', $name)
-            ->first();
+        if(Auth::user()->username == $name){
+            $user = User::where('username', $name)
+                ->first();
 
-        $viewData = [
-            'data' => $user
-        ];
+            $viewData = [
+                'data' => $user
+            ];
 
-        return view('main-blog.edituser', $viewData);
+            return view('main-blog.edituser', $viewData);
+        }
+        return redirect('user/@'. Auth::user()->username .'/edit-profile');
     }
 
     /**
@@ -69,7 +78,7 @@ class Users extends Controller
     public function edit_profile(string $name, Request $request)
     {
         if (!Auth::check()) {
-            return redirect('home');
+            return redirect('register/login');
         }
         $validate =  [
             'username' => 'required',

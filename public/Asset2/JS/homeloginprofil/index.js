@@ -10,5 +10,3 @@ document.addEventListener('click', (e) => {
         searchDropdown.style.display = 'none';
     }
 })
-
-// var $ = jQuery

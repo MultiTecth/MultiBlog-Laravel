@@ -1,24 +1,15 @@
 .jumbotron .navbar {
-    /* start */
-    /* height:70px; */
     padding-left: 20px;
     background-color: #001331;
-    /* border: 1px solid white; */
     display: flex;
-    /* grid-template-columns: auto auto auto; */
     justify-content: space-between;
     align-items: center;
-    /* row-gap: 20px; */
-    /* padding: 20px; */
 }
 
 .jumbotron .navbar .nav-menu {
-    /* border: 1px solid white; */
     display: flex;
     justify-content: center;
-    /* grid-template-columns: auto auto; */
     align-items: center;
-    /* object-position: center; */
 }
 
 .jumbotron .navbar .text {
@@ -33,13 +24,6 @@
     word-spacing: 1px;
 }
 
-/* .jumbotron .navbar .text .line{
-    width: 10px;
-    height: 80px;
-    background-color: gray;
-    margin: 5.5px;
-    float:right;
-} */
 .jumbotron .navbar .list .ul-list {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -53,7 +37,6 @@
     font-size: 20px;
     color: white;
     text-decoration: none;
-    /* list-style: none; */
 }
 
 .list .ul-list a:hover {
@@ -84,7 +67,6 @@
     gap: 30px;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid white; */
 }
 
 .more-menu-cnt {
@@ -140,8 +122,6 @@
 }
 
 .container-borwse-tab {
-    /* margin-top:2em; */
-    /* margin-left:3em; */
     padding: 1em;
     display: grid;
     justify-content: center;
@@ -151,7 +131,6 @@
 }
 
 .container-borwse-tab .card {
-    /* width:20rem; */
     background-color: #0D2440;
     padding: 0.50em;
     color: white;
@@ -172,8 +151,6 @@
 }
 
 .container-friends-tab {
-    /* margin-top:2em; */
-    /* margin-left:3em; */
     padding: 1em;
     display: grid;
     justify-content: center;
@@ -183,7 +160,6 @@
 }
 
 .container-friends-tab .card {
-    /* width:20rem; */
     background-color: #0D2440;
     padding: 0.50em;
     border: none;
@@ -201,7 +177,6 @@
 
 .container-friends-tab .card p {
     color: white;
-    /* text-algin:left; */
     font-size: 20px;
 }
 
@@ -209,7 +184,6 @@
     color: gray;
     font-size: 12px;
     border: none;
-    /* margin-left: 1.5em; */
 }
 
 .more-menu img {
@@ -217,11 +191,9 @@
     padding: 5px;
     margin-right: 5px;
     border-right: 1px solid #132845;
-    /* background-color: #012257; */
 }
 
 .more-menu input[type=search] {
-    /* padding: 5px; */
     width: 100px;
     background-color: transparent;
     border: none;
@@ -239,6 +211,8 @@
     border: none;
     box-sizing: border-box;
     background-color: #022865;
+    text-align: center;
+    text-decoration: none;
     color: white;
 }
 

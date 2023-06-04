@@ -57,7 +57,6 @@
                                     class="number">0</span> </li>
                             <li>
                                 @if ($data['isSaved'])
-                                    {{-- <form action="{{ url('tweet/' . $data['postId'] . '/' . $data['category'] . '/unsave') }}" method="POST"> --}}
                                     <form action="{{ url('tweet/' . $data['postId'] . '/unsave') }}" method="POST">
                                         @csrf
                                         @method('DELETE')

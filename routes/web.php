@@ -22,7 +22,7 @@ Route::get('ajax/{name}', [searchController::class, 'ajax']);
 Route::get('read/{name}', [searchController::class, 'read']);
 
 Route::get('/', function () {
-    return view('main-blog.home');
+    return redirect('home');
 });
 
 Route::get('register/login', [AuthController::class, 'login']);

@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Post</title>
-    <link rel="stylesheet" href="{{ asset('Assets/css/post/postpage/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('Asset2/css/postpage/index.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-5/css/bootstrap.min.css') }}">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous"> -->
 </head>
 
 <body>
@@ -19,9 +17,9 @@
     </div>
     </div>
     <div class="container-content">
-        <a href="{{ url('home') }}">
+        <a href="{{ url('home') }}" style="text-decoration: none">
             <div class="back">
-                <img src="{{ asset('Assets/icon/Expand_left_double.png') }}" alt="">
+                <img src="{{ asset('Asset2/img/Expand_left_double.png') }}" alt="">
                 <h2>Back</h2>
             </div>
         </a>
@@ -37,16 +35,12 @@
 
             <div class="content-box">
                 <div class="btn-upload">
-                    <!-- <input type="file" name="fileupload" id="img"> -->
-
                     <input type="file" class="form-control" id="img" placeholder="Enter password"
                         name="thumbnail" />
-
                     <button class="btn">
-
                         <div id="selectedBanner"></div>
-
-                        <img src="{{ asset('Asset2/img/icon/add_media.png') }}" class="media" alt="ubah gambar profile">
+                        <img src="{{ asset('Asset2/img/icon/add_media.png') }}" class="media"
+                            alt="ubah gambar profile">
                         @error('thumbnail')
                             <br>
                             <span class="text-danger">{{ $errors->first('thumbnail') }}</span>
@@ -96,17 +90,7 @@
                         </div>
                     </div>
                     <div class="category">
-
                         <h4>Category</h4>
-                        <!--
-              <button class="dropbtn">Pilih Opsi <i class="fas fa-chevron-down"></i></button>
-              <div class="dropdown-content">
-                <a href="#opsi1"> Opsi 1</a>
-                <a href="#opsi2"> Opsi 2</a>
-                <a href="#opsi3"> Opsi 3</a>
-              </div> -->
-
-
                         <select name="category" class="dropdown-content">
                             <option value="">Pilih Opsi</option>
                             <option value="Pendidikan">Pendidikan</option>
@@ -218,4 +202,5 @@
             });
     </script>
 </body>
+
 </html>

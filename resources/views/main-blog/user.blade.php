@@ -20,10 +20,6 @@
             </div>
             <div class="more-menu-cnt">
                 <div class="more-menu">
-                    <!-- <div class="search">
-                        <span class="" alt=""><img src="/Home/homepage/assets/iconpack/searchpng.png" alt=""></span>
-                        <input type="search" placeholder="Search">
-                    </div> -->
                     <a href="{{ url('upload/blog') }}"><button class="tweet-btn">Tweet</button></a>
                 </div>
                 <div class="profil">
@@ -39,7 +35,7 @@
     <div class="jmb-container" style="background-image: url('{{ asset('Asset2/img/assets/background.jpg') }}');">
         <div class="box">
             <a href="{{ url('home') }}">
-                <div class="icon-back"><img src="{{ asset('Assets/icon/Back.png') }}" alt=""></div>
+                <div class="icon-back"><img src="{{ asset('Asset2/img/icon/Back.png') }}" alt=""></div>
             </a>
         </div>
     </div>
@@ -50,9 +46,6 @@
             <div class="profil-card">
                 <div class="profil-box">
                     <div class="profil-picture">
-                        {{-- @php
-                        ddd($viewData)
-                        @endphp --}}
                         <img src="{{ asset('storage/' . $user->imgpp) }}" alt="" width="50"
                             class="rounded-circle">
                     </div> <!-- profil end-->
@@ -65,7 +58,6 @@
                         </div><!-- Bio end-->
                     </div> <!-- User-name end-->
                     <div class="user-email">
-                        <!-- <br> -->
                         <span class="gray">{{ $user->email }}</span>
                     </div> <!-- User-email end-->
                 </div><!-- box end-->
@@ -125,7 +117,6 @@
                                 <!--home tab profile end-->
                                 <div class="date-time">
                                     <p>{{ $post->created_at }}<span id="tanggal"></span></p>
-                                    {{-- <p>· 23.15 PM<span id="waktu"></span></p> --}}
                                 </div>
                                 <div class="post-content">
                                     <a href="{{ url('tweet/' . $post->category . '/' . $post->id) }}">
@@ -157,7 +148,6 @@
                             @foreach ($savedPost as $item)
                                 <a class="card" href="{{ url('tweet/' . $item->post->category . '/' . $item->post->id) }}">
                                     <div class="img-card">
-                                        <!-- <img src="../../Assest/Image Novel/3819901-352-k318054 1.png" alt=""> -->
                                         <img src="{{ asset('storage/' . $item->post->thumbnail) }}" alt="" width="100%">
                                     </div>
                                     <div class="content">
